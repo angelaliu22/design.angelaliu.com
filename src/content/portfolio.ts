@@ -91,8 +91,8 @@ export const portfolioData: PortfolioData = {
           outcome:
             "I delivered a \"less administrative\" and more helpful homepage experience that pulls in major product documentation and real-time API status. The centerpiece of the redesign is the Portal Agent, a sophisticated orchestrator of tools that provides developers with a much better starting point for integration without losing the steps to production. By integrating ShadCN graph libraries for interactive data visualization, we turned a static portal into a high-utility diagnostic engine. The result is a durable foundation that educates developers on FHIR while significantly reducing the support burden on our internal teams.",
           media: {
-            type: "video",
-            src: "/images/portal-demo.mp4",
+            type: "youtube",
+            src: "https://www.youtube.com/watch?v=GhhRZpr1y88",
             filename: "PORTAL_DEMO.AVI",
           },
         },
