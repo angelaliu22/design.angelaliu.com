@@ -36,141 +36,138 @@ export default function WrightPage({ data }: WrightPageProps) {
 
   return (
     <div className="wright-theme">
-      {/* Three.js waterfall background */}
       <WaterfallScene />
 
-      {/* Header - floats over scene */}
-      <header className="wright-header">
-        <span className="wright-name">{data.name}</span>
-        <nav className="wright-nav">
-          {(["about", "work", "projects", "contact"] as Section[]).map((s) => (
-            <button
-              key={s}
-              className={`wright-nav-link ${activeSection === s ? "active" : ""}`}
-              onClick={() => scrollTo(s)}
-            >
-              {s}
-            </button>
-          ))}
-        </nav>
-      </header>
-
-      {/* Scrollable content layer */}
       <div className="wright-content-scroll">
-        {/* Hero / About - cantilevered slab */}
+        <header className="wright-header">
+          <span className="wright-name">{data.name}</span>
+          <nav className="wright-nav">
+            {(["about", "work", "projects", "contact"] as Section[]).map(
+              (s) => (
+                <button
+                  key={s}
+                  className={`wright-nav-link ${activeSection === s ? "active" : ""}`}
+                  onClick={() => scrollTo(s)}
+                >
+                  {s}
+                </button>
+              )
+            )}
+          </nav>
+        </header>
+
+        {/* Hero */}
         <section id="wright-about" className="wright-hero">
-          <div className="wright-slab">
-            <div className="wright-slab-edge" />
-            <div className="wright-slab-content">
-              <h1 className="wright-hero-title">{data.name}</h1>
-              <p className="wright-hero-bio">{data.bio}</p>
-              <p className="wright-hero-bio" style={{ marginTop: "16px" }}>
-                {data.currentRole.title} at {data.currentRole.company}.{" "}
-                {data.currentRole.description}
-              </p>
+          <h1 className="wright-hero-title">{data.name}</h1>
+          <p className="wright-hero-bio">{data.bio}</p>
+
+          <div className="wright-hero-role">
+            <div className="wright-hero-role-title">
+              {data.currentRole.title} — {data.currentRole.company}
             </div>
+            <p className="wright-hero-role-desc">
+              {data.currentRole.description}
+            </p>
           </div>
         </section>
 
-        {/* Spacer to let the waterfall show through */}
-        <div className="wright-waterfall-gap" />
+        <div className="wright-divider">
+          <div className="wright-divider-line" />
+        </div>
 
-        {/* Work Experience */}
+        {/* Work */}
         <section id="wright-work" className="wright-section">
-          <div className="wright-slab">
-            <div className="wright-slab-edge" />
-            <div className="wright-slab-content">
-              <h2 className="wright-section-title">Experience</h2>
-              <p className="wright-section-subtitle">
-                A career in design & product
-              </p>
+          <div className="wright-section-label">Experience</div>
+          <h2 className="wright-section-title">
+            A career building products
+            <br />
+            in healthcare & technology
+          </h2>
 
-              <div className="wright-timeline">
-                <div className="wright-timeline-item">
-                  <div className="wright-timeline-company">
-                    {data.currentRole.company}
-                  </div>
-                  <div className="wright-timeline-role">
-                    {data.currentRole.title}
-                  </div>
-                  <div className="wright-timeline-period">
-                    {data.currentRole.period}
-                  </div>
+          <div className="wright-timeline">
+            <div className="wright-timeline-item">
+              <div className="wright-timeline-left">
+                <div className="wright-timeline-company">
+                  {data.currentRole.company}
                 </div>
-
-                {data.pastWork.map((job) => (
-                  <div key={job.company} className="wright-timeline-item">
-                    <div className="wright-timeline-company">{job.company}</div>
-                    <div className="wright-timeline-role">{job.title}</div>
-                    <div className="wright-timeline-period">{job.period}</div>
-                    {job.description && (
-                      <div className="wright-timeline-desc">
-                        {job.description}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                <div className="wright-timeline-period">
+                  {data.currentRole.period}
+                </div>
+              </div>
+              <div className="wright-timeline-right">
+                <div className="wright-timeline-role">
+                  {data.currentRole.title}
+                </div>
               </div>
             </div>
+
+            {data.pastWork.map((job) => (
+              <div key={job.company} className="wright-timeline-item">
+                <div className="wright-timeline-left">
+                  <div className="wright-timeline-company">{job.company}</div>
+                  <div className="wright-timeline-period">{job.period}</div>
+                </div>
+                <div className="wright-timeline-right">
+                  <div className="wright-timeline-role">{job.title}</div>
+                  {job.description && (
+                    <div className="wright-timeline-desc">
+                      {job.description}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
-        <div className="wright-waterfall-gap" />
+        <div className="wright-divider">
+          <div className="wright-divider-line" />
+        </div>
 
         {/* Projects */}
         <section id="wright-projects" className="wright-section">
-          <div className="wright-slab">
-            <div className="wright-slab-edge" />
-            <div className="wright-slab-content">
-              <h2 className="wright-section-title">Selected Work</h2>
-              <p className="wright-section-subtitle">
-                Notable projects at Flexpa
-              </p>
+          <div className="wright-section-label">Selected Work</div>
+          <h2 className="wright-section-title">Notable projects at Flexpa</h2>
 
-              <div className="wright-projects">
-                {(data.currentRole.projects || []).map((project) => (
-                  <div
-                    key={project.slug}
-                    className="wright-project-card"
-                    onClick={() => setSelectedProject(project)}
-                  >
-                    <div className="wright-project-name">{project.name}</div>
-                    <div className="wright-project-desc">
-                      {project.subtitle}
-                    </div>
-                  </div>
-                ))}
+          <div className="wright-projects">
+            {(data.currentRole.projects || []).map((project) => (
+              <div
+                key={project.slug}
+                className="wright-project-card"
+                onClick={() => setSelectedProject(project)}
+              >
+                <div className="wright-project-name">{project.name}</div>
+                <div className="wright-project-desc">{project.subtitle}</div>
+                <div className="wright-project-arrow">Read →</div>
               </div>
-            </div>
+            ))}
           </div>
         </section>
 
-        <div className="wright-waterfall-gap" />
+        <div className="wright-divider">
+          <div className="wright-divider-line" />
+        </div>
 
         {/* Contact */}
         <section id="wright-contact" className="wright-section">
-          <div className="wright-slab wright-slab-narrow">
-            <div className="wright-slab-edge" />
-            <div className="wright-slab-content">
-              <h2 className="wright-section-title">Connect</h2>
-              <div className="wright-contact-links">
-                {data.socialLinks.map((link) => (
-                  <a
-                    key={link.platform}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="wright-contact-link"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
+          <div className="wright-section-label">Connect</div>
+          <h2 className="wright-section-title">Get in touch</h2>
+
+          <div className="wright-contact-links">
+            {data.socialLinks.map((link) => (
+              <a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="wright-contact-link"
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="wright-footer">{data.copyright}</footer>
       </div>
 
@@ -188,7 +185,7 @@ export default function WrightPage({ data }: WrightPageProps) {
         ))}
       </div>
 
-      {/* Project detail overlay */}
+      {/* Project detail */}
       {selectedProject && (
         <div
           className="wright-detail-overlay"
