@@ -1,21 +1,70 @@
-/* Frank Lloyd Wright / Prairie Style Theme */
+/* Frank Lloyd Wright / Fallingwater Theme */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;500&display=swap");
 
 .wright-theme {
-  background: #f5f0e8;
+  background: #1a2418;
   color: #2c2416;
   font-family: "Raleway", sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  position: relative;
 }
 
-/* ── Geometric border accents (Prairie style) ── */
+/* ── Scrollable content layer over Three.js ── */
+
+.wright-content-scroll {
+  position: relative;
+  z-index: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+/* ── Concrete slab containers ── */
+
+.wright-slab {
+  background: rgba(245, 240, 232, 0.94);
+  backdrop-filter: blur(8px);
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow:
+    0 4px 0 #b0a594,
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.wright-slab-narrow {
+  max-width: 600px;
+}
+
+/* Terracotta accent edge — like FLW's Cherokee Red */
+.wright-slab-edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: #c45a3c;
+}
+
+.wright-slab-content {
+  padding: 48px 56px 48px 64px;
+}
+
+/* ── Gaps between slabs to see the waterfall ── */
+
+.wright-waterfall-gap {
+  height: 120px;
+}
+
+/* ── Header ── */
 
 .wright-header {
-  background: #2c2416;
+  background: rgba(44, 36, 22, 0.92);
+  backdrop-filter: blur(12px);
   color: #f5f0e8;
-  padding: 24px 48px;
+  padding: 20px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +79,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   background: repeating-linear-gradient(
     90deg,
     #c45a3c 0px,
@@ -46,20 +95,20 @@
 
 .wright-name {
   font-family: "Playfair Display", serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 
 .wright-nav {
   display: flex;
-  gap: 32px;
+  gap: 28px;
 }
 
 .wright-nav-link {
   font-family: "Raleway", sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -82,74 +131,37 @@
   padding-bottom: 2px;
 }
 
-/* ── Hero section ── */
+/* ── Hero / About ── */
 
 .wright-hero {
-  padding: 80px 48px;
-  max-width: 960px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.wright-hero::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 40px;
-  bottom: 40px;
-  width: 4px;
-  background: #c45a3c;
+  padding: 80px 24px 0;
 }
 
 .wright-hero-title {
   font-family: "Playfair Display", serif;
-  font-size: 48px;
+  font-size: 44px;
   font-weight: 700;
   line-height: 1.2;
   color: #2c2416;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .wright-hero-bio {
-  font-size: 18px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.9;
   color: #5a4e3c;
-  max-width: 640px;
   font-weight: 300;
 }
 
-/* ── Geometric divider ── */
-
-.wright-divider {
-  height: 20px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 16px,
-    #2c2416 16px,
-    #2c2416 18px,
-    transparent 18px,
-    transparent 34px,
-    #c45a3c 34px,
-    #c45a3c 42px,
-    transparent 42px,
-    transparent 50px
-  );
-  margin: 0;
-  opacity: 0.3;
-}
-
-/* ── Content sections ── */
+/* ── Sections ── */
 
 .wright-section {
-  padding: 64px 48px;
-  max-width: 960px;
-  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .wright-section-title {
   font-family: "Playfair Display", serif;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
   color: #2c2416;
   margin-bottom: 8px;
@@ -160,18 +172,18 @@
 .wright-section-title::after {
   content: "";
   display: block;
-  width: 60px;
+  width: 50px;
   height: 3px;
   background: #c45a3c;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .wright-section-subtitle {
-  font-size: 14px;
+  font-size: 12px;
   color: #8a7d6b;
   letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   font-weight: 400;
 }
 
@@ -180,61 +192,46 @@
 .wright-projects {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-top: 32px;
+  gap: 24px;
+  margin-top: 24px;
 }
 
 .wright-project-card {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid #e0d8c8;
-  padding: 32px;
+  border-left: 4px solid #d4a853;
+  padding: 24px 24px 24px 28px;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.wright-project-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: #d4a853;
-  transition: width 0.3s ease;
 }
 
 .wright-project-card:hover {
-  border-color: #c45a3c;
-  box-shadow: 0 8px 32px rgba(44, 36, 22, 0.1);
-}
-
-.wright-project-card:hover::before {
-  width: 8px;
-  background: #c45a3c;
+  border-left-color: #c45a3c;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(44, 36, 22, 0.1);
+  transform: translateY(-2px);
 }
 
 .wright-project-name {
   font-family: "Playfair Display", serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #2c2416;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .wright-project-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: #8a7d6b;
   line-height: 1.6;
 }
 
-/* ── Work experience ── */
+/* ── Timeline ── */
 
 .wright-timeline {
-  margin-top: 32px;
+  margin-top: 24px;
   position: relative;
-  padding-left: 32px;
+  padding-left: 28px;
 }
 
 .wright-timeline::before {
@@ -244,49 +241,49 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #e0d8c8;
+  background: #d4a853;
 }
 
 .wright-timeline-item {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   position: relative;
 }
 
 .wright-timeline-item::before {
   content: "";
   position: absolute;
-  left: -37px;
+  left: -33px;
   top: 6px;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   background: #f5f0e8;
   border: 2px solid #c45a3c;
 }
 
 .wright-timeline-company {
   font-family: "Playfair Display", serif;
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 700;
   color: #2c2416;
 }
 
 .wright-timeline-role {
-  font-size: 14px;
+  font-size: 13px;
   color: #c45a3c;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   font-weight: 500;
 }
 
 .wright-timeline-period {
-  font-size: 12px;
+  font-size: 11px;
   color: #8a7d6b;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .wright-timeline-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: #5a4e3c;
   line-height: 1.7;
 }
@@ -295,18 +292,18 @@
 
 .wright-contact-links {
   display: flex;
-  gap: 24px;
-  margin-top: 32px;
+  gap: 20px;
+  margin-top: 24px;
 }
 
 .wright-contact-link {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #2c2416;
   text-decoration: none;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border: 1px solid #2c2416;
   transition: all 0.3s;
 }
@@ -319,11 +316,12 @@
 /* ── Footer ── */
 
 .wright-footer {
-  background: #2c2416;
+  background: rgba(44, 36, 22, 0.92);
+  backdrop-filter: blur(12px);
   color: #8a7d6b;
-  padding: 32px 48px;
+  padding: 24px 48px;
   text-align: center;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2px;
   position: relative;
 }
@@ -334,7 +332,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   background: repeating-linear-gradient(
     90deg,
     #c45a3c 0px,
@@ -348,38 +346,40 @@
   );
 }
 
-/* ── Status bar for theme switch ── */
+/* ── Theme switcher ── */
 
 .wright-status {
   position: fixed;
   bottom: 16px;
   right: 16px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   z-index: 20;
 }
 
 .wright-theme-btn {
   font-family: "Raleway", sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  padding: 8px 16px;
-  border: 1px solid #2c2416;
-  background: #f5f0e8;
-  color: #2c2416;
+  padding: 6px 14px;
+  border: 1px solid rgba(245, 240, 232, 0.5);
+  background: rgba(44, 36, 22, 0.8);
+  backdrop-filter: blur(8px);
+  color: #f5f0e8;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .wright-theme-btn:hover {
-  background: #2c2416;
-  color: #f5f0e8;
+  background: rgba(245, 240, 232, 0.9);
+  color: #2c2416;
 }
 
 .wright-theme-btn.active {
-  background: #2c2416;
-  color: #d4a853;
+  background: rgba(196, 90, 60, 0.9);
+  border-color: #c45a3c;
+  color: #f5f0e8;
 }
 
 .wright-theme-btn:disabled {
@@ -391,7 +391,7 @@
 .wright-detail-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(44, 36, 22, 0.85);
+  background: rgba(26, 36, 24, 0.9);
   z-index: 50;
   overflow-y: auto;
   display: flex;
@@ -401,11 +401,14 @@
 
 .wright-detail-card {
   background: #f5f0e8;
-  max-width: 800px;
+  max-width: 760px;
   width: 100%;
-  padding: 64px;
+  padding: 56px;
   position: relative;
   margin: auto;
+  box-shadow:
+    0 4px 0 #b0a594,
+    0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 .wright-detail-card::before {
@@ -413,20 +416,20 @@
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 4px;
+  width: 6px;
+  height: 100%;
   background: #c45a3c;
 }
 
 .wright-detail-close {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: 20px;
+  right: 20px;
   background: none;
   border: 1px solid #2c2416;
   color: #2c2416;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   font-size: 18px;
   cursor: pointer;
   display: flex;
@@ -442,40 +445,40 @@
 
 .wright-detail-title {
   font-family: "Playfair Display", serif;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
   color: #2c2416;
   margin-bottom: 8px;
 }
 
 .wright-detail-subtitle {
-  font-size: 16px;
+  font-size: 15px;
   color: #8a7d6b;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   line-height: 1.6;
 }
 
 .wright-detail-section {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .wright-detail-section-title {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #c45a3c;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .wright-detail-text {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.8;
   color: #5a4e3c;
 }
 
 .wright-detail-media {
-  margin: 32px 0;
+  margin: 24px 0;
   border: 1px solid #e0d8c8;
   overflow: hidden;
 }
@@ -497,37 +500,45 @@
 
 @media (max-width: 768px) {
   .wright-header {
-    padding: 16px 24px;
+    padding: 14px 20px;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .wright-nav {
-    gap: 16px;
+    gap: 14px;
   }
 
   .wright-hero {
-    padding: 48px 24px;
+    padding: 60px 12px 0;
   }
 
   .wright-hero-title {
-    font-size: 32px;
+    font-size: 28px;
+  }
+
+  .wright-slab-content {
+    padding: 32px 28px 32px 36px;
   }
 
   .wright-section {
-    padding: 48px 24px;
+    padding: 0 12px;
   }
 
   .wright-projects {
     grid-template-columns: 1fr;
   }
 
+  .wright-waterfall-gap {
+    height: 80px;
+  }
+
   .wright-detail-card {
-    padding: 32px;
+    padding: 28px;
   }
 
   .wright-detail-title {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .wright-contact-links {

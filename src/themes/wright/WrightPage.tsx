@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { PortfolioData, Project } from "@/content/portfolio";
 import { useTheme } from "@/themes/ThemeProvider";
+import { WaterfallScene } from "./components/WaterfallScene";
 import "./wright.css";
 
 interface WrightPageProps {
@@ -35,7 +36,10 @@ export default function WrightPage({ data }: WrightPageProps) {
 
   return (
     <div className="wright-theme">
-      {/* Header */}
+      {/* Three.js waterfall background */}
+      <WaterfallScene />
+
+      {/* Header - floats over scene */}
       <header className="wright-header">
         <span className="wright-name">{data.name}</span>
         <nav className="wright-nav">
@@ -51,96 +55,124 @@ export default function WrightPage({ data }: WrightPageProps) {
         </nav>
       </header>
 
-      {/* Hero / About */}
-      <section id="wright-about" className="wright-hero">
-        <h1 className="wright-hero-title">{data.name}</h1>
-        <p className="wright-hero-bio">{data.bio}</p>
-        <p className="wright-hero-bio" style={{ marginTop: "16px" }}>
-          {data.currentRole.title} at {data.currentRole.company}.{" "}
-          {data.currentRole.description}
-        </p>
-      </section>
-
-      <div className="wright-divider" />
-
-      {/* Work Experience */}
-      <section id="wright-work" className="wright-section">
-        <h2 className="wright-section-title">Experience</h2>
-        <p className="wright-section-subtitle">A career in design & product</p>
-
-        <div className="wright-timeline">
-          {/* Current */}
-          <div className="wright-timeline-item">
-            <div className="wright-timeline-company">
-              {data.currentRole.company}
-            </div>
-            <div className="wright-timeline-role">
-              {data.currentRole.title}
-            </div>
-            <div className="wright-timeline-period">
-              {data.currentRole.period}
+      {/* Scrollable content layer */}
+      <div className="wright-content-scroll">
+        {/* Hero / About - cantilevered slab */}
+        <section id="wright-about" className="wright-hero">
+          <div className="wright-slab">
+            <div className="wright-slab-edge" />
+            <div className="wright-slab-content">
+              <h1 className="wright-hero-title">{data.name}</h1>
+              <p className="wright-hero-bio">{data.bio}</p>
+              <p className="wright-hero-bio" style={{ marginTop: "16px" }}>
+                {data.currentRole.title} at {data.currentRole.company}.{" "}
+                {data.currentRole.description}
+              </p>
             </div>
           </div>
+        </section>
 
-          {/* Past */}
-          {data.pastWork.map((job) => (
-            <div key={job.company} className="wright-timeline-item">
-              <div className="wright-timeline-company">{job.company}</div>
-              <div className="wright-timeline-role">{job.title}</div>
-              <div className="wright-timeline-period">{job.period}</div>
-              {job.description && (
-                <div className="wright-timeline-desc">{job.description}</div>
-              )}
+        {/* Spacer to let the waterfall show through */}
+        <div className="wright-waterfall-gap" />
+
+        {/* Work Experience */}
+        <section id="wright-work" className="wright-section">
+          <div className="wright-slab">
+            <div className="wright-slab-edge" />
+            <div className="wright-slab-content">
+              <h2 className="wright-section-title">Experience</h2>
+              <p className="wright-section-subtitle">
+                A career in design & product
+              </p>
+
+              <div className="wright-timeline">
+                <div className="wright-timeline-item">
+                  <div className="wright-timeline-company">
+                    {data.currentRole.company}
+                  </div>
+                  <div className="wright-timeline-role">
+                    {data.currentRole.title}
+                  </div>
+                  <div className="wright-timeline-period">
+                    {data.currentRole.period}
+                  </div>
+                </div>
+
+                {data.pastWork.map((job) => (
+                  <div key={job.company} className="wright-timeline-item">
+                    <div className="wright-timeline-company">{job.company}</div>
+                    <div className="wright-timeline-role">{job.title}</div>
+                    <div className="wright-timeline-period">{job.period}</div>
+                    {job.description && (
+                      <div className="wright-timeline-desc">
+                        {job.description}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <div className="wright-divider" />
+        <div className="wright-waterfall-gap" />
 
-      {/* Projects */}
-      <section id="wright-projects" className="wright-section">
-        <h2 className="wright-section-title">Selected Work</h2>
-        <p className="wright-section-subtitle">Notable projects at Flexpa</p>
+        {/* Projects */}
+        <section id="wright-projects" className="wright-section">
+          <div className="wright-slab">
+            <div className="wright-slab-edge" />
+            <div className="wright-slab-content">
+              <h2 className="wright-section-title">Selected Work</h2>
+              <p className="wright-section-subtitle">
+                Notable projects at Flexpa
+              </p>
 
-        <div className="wright-projects">
-          {(data.currentRole.projects || []).map((project) => (
-            <div
-              key={project.slug}
-              className="wright-project-card"
-              onClick={() => setSelectedProject(project)}
-            >
-              <div className="wright-project-name">{project.name}</div>
-              <div className="wright-project-desc">{project.subtitle}</div>
+              <div className="wright-projects">
+                {(data.currentRole.projects || []).map((project) => (
+                  <div
+                    key={project.slug}
+                    className="wright-project-card"
+                    onClick={() => setSelectedProject(project)}
+                  >
+                    <div className="wright-project-name">{project.name}</div>
+                    <div className="wright-project-desc">
+                      {project.subtitle}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <div className="wright-divider" />
+        <div className="wright-waterfall-gap" />
 
-      {/* Contact */}
-      <section id="wright-contact" className="wright-section">
-        <h2 className="wright-section-title">Connect</h2>
-        <p className="wright-section-subtitle">Get in touch</p>
+        {/* Contact */}
+        <section id="wright-contact" className="wright-section">
+          <div className="wright-slab wright-slab-narrow">
+            <div className="wright-slab-edge" />
+            <div className="wright-slab-content">
+              <h2 className="wright-section-title">Connect</h2>
+              <div className="wright-contact-links">
+                {data.socialLinks.map((link) => (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="wright-contact-link"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <div className="wright-contact-links">
-          {data.socialLinks.map((link) => (
-            <a
-              key={link.platform}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="wright-contact-link"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="wright-footer">{data.copyright}</footer>
+        {/* Footer */}
+        <footer className="wright-footer">{data.copyright}</footer>
+      </div>
 
       {/* Theme switcher */}
       <div className="wright-status">
@@ -178,7 +210,6 @@ export default function WrightPage({ data }: WrightPageProps) {
               {selectedProject.subtitle}
             </p>
 
-            {/* Media */}
             {selectedProject.detail?.media && (
               <div className="wright-detail-media">
                 {selectedProject.detail.media.type === "image" && (

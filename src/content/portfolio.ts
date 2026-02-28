@@ -193,13 +193,13 @@ export const portfolioData: PortfolioData = {
   socialLinks: [
     {
       platform: "LinkedIn",
-      url: "https://linkedin.com/in/angelacliu",
+      url: "https://www.linkedin.com/in/angelaliu22/",
       label: "LinkedIn",
     },
-    { platform: "Twitter", url: "https://x.com/angelacliu", label: "Twitter/X" },
+    { platform: "Twitter", url: "https://x.com/_angelaliu", label: "Twitter/X" },
     {
       platform: "GitHub",
-      url: "https://github.com/angelacliu",
+      url: "https://github.com/angelaliu22",
       label: "GitHub",
     },
   ],
