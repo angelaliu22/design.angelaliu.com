@@ -1,10 +1,18 @@
 /* DOS Theme - CRT Effects */
 
+@font-face {
+  font-family: "PxPlus IBM VGA8";
+  src: url("/fonts/PxPlus_IBM_VGA_8x16.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 .dos-theme {
   background: #0a0a0a;
   color: #33ff33;
-  font-family: "PxPlus IBM VGA8", "IBM VGA", "Courier New", monospace;
-  min-height: 100vh;
+  font-family: "PxPlus IBM VGA8", "Courier New", monospace;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 }
@@ -214,6 +222,16 @@
 .dos-status-btn:hover {
   background: #000;
   color: #aaaaaa;
+}
+
+.dos-status-btn.active {
+  background: #000;
+  color: #33ff33;
+  border-color: #33ff33;
+}
+
+.dos-status-btn:disabled {
+  cursor: default;
 }
 
 /* Blinking cursor animation */

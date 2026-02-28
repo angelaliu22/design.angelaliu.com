@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, KeyboardEvent } from "react";
+import { playKeystroke, playBeep } from "@/lib/sounds";
 
 interface CommandInputProps {
   onSubmit: (command: string) => void;
@@ -15,6 +16,7 @@ export function CommandInput({ onSubmit }: CommandInputProps) {
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter" && value.trim()) {
+        playBeep();
         onSubmit(value);
         setHistory((prev) => [value, ...prev]);
         setValue("");
@@ -53,7 +55,10 @@ export function CommandInput({ onSubmit }: CommandInputProps) {
         type="text"
         className="dos-input"
         value={value}
-        onChange={(e) => setValue(e.target.value.toUpperCase())}
+        onChange={(e) => {
+          playKeystroke();
+          setValue(e.target.value.toUpperCase());
+        }}
         onKeyDown={handleKeyDown}
         autoFocus
         spellCheck={false}
