@@ -71,8 +71,9 @@ export function ChatPanel() {
             const data = line.slice(6);
             if (data === "[DONE]") break;
             try {
-              const { text } = JSON.parse(data);
-              accumulated += text;
+              const parsed = JSON.parse(data);
+              if (parsed.error) throw new Error(parsed.error);
+              accumulated += parsed.text ?? "";
               setMessages((prev) => {
                 const updated = [...prev];
                 updated[updated.length - 1] = {
@@ -81,7 +82,11 @@ export function ChatPanel() {
                 };
                 return updated;
               });
-            } catch {}
+            } catch (parseErr) {
+              if (parseErr instanceof Error && parseErr.message !== "Unexpected token") {
+                throw parseErr;
+              }
+            }
           }
         }
       } catch (err) {

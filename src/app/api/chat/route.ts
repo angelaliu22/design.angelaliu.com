@@ -1,8 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { portfolioData } from "@/content/portfolio";
 
-const client = new Anthropic();
-
 const SYSTEM_PROMPT = `You are a helpful assistant embedded in Angela Liu's portfolio website. You know everything about Angela and can answer questions about her work, experience, skills, and background.
 
 Here is Angela's complete portfolio data:
@@ -39,31 +37,60 @@ Guidelines:
 - You can speak in first person as if you ARE Angela, or third person — use your judgment based on the question.`;
 
 export async function POST(req: Request) {
-  const { messages } = await req.json();
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    return new Response(JSON.stringify({ error: "ANTHROPIC_API_KEY not configured" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
-  const stream = client.messages.stream({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 1024,
-    system: SYSTEM_PROMPT,
-    messages,
-  });
+  let messages: { role: string; content: string }[];
+  try {
+    const body = await req.json();
+    messages = body.messages;
+  } catch {
+    return new Response(JSON.stringify({ error: "Invalid request body" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  const client = new Anthropic({ apiKey });
 
   const readable = new ReadableStream({
     async start(controller) {
-      for await (const chunk of stream) {
-        if (
-          chunk.type === "content_block_delta" &&
-          chunk.delta.type === "text_delta"
-        ) {
-          controller.enqueue(
-            new TextEncoder().encode(
-              `data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`
-            )
-          );
+      try {
+        const stream = client.messages.stream({
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 1024,
+          system: SYSTEM_PROMPT,
+          messages: messages as Anthropic.MessageParam[],
+        });
+
+        for await (const chunk of stream) {
+          if (
+            chunk.type === "content_block_delta" &&
+            chunk.delta.type === "text_delta"
+          ) {
+            controller.enqueue(
+              new TextEncoder().encode(
+                `data: ${JSON.stringify({ text: chunk.delta.text })}\n\n`
+              )
+            );
+          }
         }
+        controller.enqueue(new TextEncoder().encode("data: [DONE]\n\n"));
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : "Unknown error";
+        controller.enqueue(
+          new TextEncoder().encode(
+            `data: ${JSON.stringify({ error: msg })}\n\n`
+          )
+        );
+      } finally {
+        controller.close();
       }
-      controller.enqueue(new TextEncoder().encode("data: [DONE]\n\n"));
-      controller.close();
     },
   });
 
