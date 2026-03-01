@@ -2,18 +2,18 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Hotspot } from "../data/bio";
-import { ExpansionCard } from "./ExpansionCard";
+import { AICard, AIContextCard } from "./AIContextCard";
 
 interface SidePanelProps {
   visible: boolean;
-  cards: Array<{ hotspot: Hotspot; isPinned: boolean }>;
+  cards: AICard[];
   onPin: (id: string) => void;
   onArchive: (id: string) => void;
+  onAsk: (cardId: string, question: string) => void;
   onClose: () => void;
 }
 
-export function SidePanel({ visible, cards, onPin, onArchive, onClose }: SidePanelProps) {
+export function SidePanel({ visible, cards, onPin, onArchive, onAsk, onClose }: SidePanelProps) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -44,13 +44,13 @@ export function SidePanel({ visible, cards, onPin, onArchive, onClose }: SidePan
 
           <div className="learn-panel-cards">
             <AnimatePresence mode="popLayout">
-              {cards.map(({ hotspot, isPinned }) => (
-                <ExpansionCard
-                  key={hotspot.id}
-                  hotspot={hotspot}
-                  isPinned={isPinned}
+              {cards.map((card) => (
+                <AIContextCard
+                  key={card.id}
+                  card={card}
                   onPin={onPin}
                   onArchive={onArchive}
+                  onAsk={onAsk}
                 />
               ))}
             </AnimatePresence>
