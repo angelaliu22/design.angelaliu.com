@@ -14,9 +14,9 @@ import "./learn.css";
 // Hardcoded onboarding card — no API call, instant reveal
 const ONBOARDING_CARD: AICard = {
   id: "onboarding",
-  selectedText: "Founding Designer and Product Lead",
+  selectedText: "Lick Wilmerding High School",
   context:
-    "Angela owns the full product lifecycle at Flexpa — from defining what to build, to shipping the code herself. It's a rare combination: the design instincts of a creative director with the execution speed of an engineer.",
+    "A progressive San Francisco high school with roots as a trade school. Students learn woodworking, glass blowing, electronics, and jewelry alongside academics — one of the few high schools in the country that still teaches real craft.",
   messages: [],
   isStreaming: false,
   isPinned: false,
@@ -158,10 +158,7 @@ export function LearnPage({ data: _data }: { data: PortfolioData }) {
   } | null>(null);
 
   // Onboarding state
-  const [onboardingDone, setOnboardingDone] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return localStorage.getItem("learn-onboarding-done") === "1";
-  });
+  const [onboardingDone, setOnboardingDone] = useState(false);
   const [onboardingHighlight, setOnboardingHighlight] = useState(false);
   const onboardingTargetRef = useRef<HTMLSpanElement>(null);
 
@@ -205,7 +202,6 @@ export function LearnPage({ data: _data }: { data: PortfolioData }) {
 
   const handleOnboardingComplete = useCallback(() => {
     setOnboardingDone(true);
-    localStorage.setItem("learn-onboarding-done", "1");
   }, []);
 
   // ── Ask follow-up question ──
@@ -298,10 +294,10 @@ export function LearnPage({ data: _data }: { data: PortfolioData }) {
     };
   }, []);
 
-  // ── Split p4 to wrap the onboarding target phrase ──
-  const p4 = bioParagraphs[3];
-  const targetPhrase = "Founding Designer and Product Lead";
-  const p4Parts = p4.text.split(targetPhrase);
+  // ── Split p1 to wrap the onboarding target phrase ──
+  const p1 = bioParagraphs[0];
+  const targetPhrase = "Lick Wilmerding High School";
+  const p1Parts = p1.text.split(targetPhrase);
 
   return (
     <div className="learn-theme">
@@ -339,16 +335,9 @@ export function LearnPage({ data: _data }: { data: PortfolioData }) {
       <main className="learn-body">
         <p className="learn-eyebrow">Profile</p>
 
-        {/* Paragraphs 1–3: plain */}
-        {bioParagraphs.slice(0, 3).map((para) => (
-          <p key={para.id} className="learn-paragraph">
-            {para.text}
-          </p>
-        ))}
-
-        {/* Paragraph 4: contains the onboarding target span */}
+        {/* Paragraph 1: contains the onboarding target span */}
         <p className="learn-paragraph">
-          {p4Parts[0]}
+          {p1Parts[0]}
           <span
             ref={onboardingTargetRef}
             className={
@@ -357,8 +346,15 @@ export function LearnPage({ data: _data }: { data: PortfolioData }) {
           >
             {targetPhrase}
           </span>
-          {p4Parts[1]}
+          {p1Parts[1]}
         </p>
+
+        {/* Paragraphs 2–4: plain */}
+        {bioParagraphs.slice(1).map((para) => (
+          <p key={para.id} className="learn-paragraph">
+            {para.text}
+          </p>
+        ))}
 
         <p className="learn-hint">
           <span className="learn-hint-dot" />
